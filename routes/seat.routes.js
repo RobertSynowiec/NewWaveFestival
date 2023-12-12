@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const validateInput = require('../validateInput');
+const isSeatOccupied = require('../isSeatOccupied');
+
 
 const seatSchema = Joi.object({
     day: Joi.number().required(),
@@ -32,6 +34,14 @@ router.post('/seats',
     validateInput(seatSchema),
     (req, res) => {
         const { day, seat, client, email } = req.body;
+
+        const isSeatOccupiedResult = isSeatOccupied(db.seats, day, seat);
+        console.log('isSeatOccupiedResult ', isSeatOccupiedResult)
+
+        if (isSeatOccupiedResult) {
+            return res.status(400).json({ message: "The slot is already taken..." });
+        }
+
         const newSeat = {
             id: db.seats.length > 0 ? Math.max(...db.seats.map(item => item.id)) + 1 : 1,
             day,
