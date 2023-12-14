@@ -64,5 +64,4 @@ router.delete('/concerts/:id',
         db.concerts = db.concerts.filter(item => item.id !== concertId);
         res.json({ message: 'Ok' });
     });
-
 module.exports = router;
