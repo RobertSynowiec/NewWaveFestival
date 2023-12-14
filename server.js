@@ -8,22 +8,19 @@ const path = require('path');
 const testimonialsRoutes = require('./routes/testimonial.routes');
 const concertRoutes = require('./routes/concert.routes');
 const seatRoutes = require('./routes/seat.routes');
-
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/client/build')));
 
-app.use(
-    cors({
-        origin: 'http://localhost:3000',
-    })
-);
-app.use(express.urlencoded({ extended: false }));
 
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertRoutes);
 app.use('/api', seatRoutes);
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });

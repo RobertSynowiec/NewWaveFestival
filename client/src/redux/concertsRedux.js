@@ -20,7 +20,6 @@ const LOAD_CONCERTS = createActionName('LOAD_CONCERTS');
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = error => ({ error, type: ERROR_REQUEST });
-
 export const loadConcerts = payload => ({ payload, type: LOAD_CONCERTS });
 
 /* THUNKS */
@@ -36,7 +35,7 @@ export const loadConcertsRequest = () => {
       dispatch(loadConcerts(res.data));
       dispatch(endRequest());
 
-    } catch(e) {
+    } catch (e) {
       dispatch(errorRequest(e.message));
     }
 
@@ -58,7 +57,7 @@ const initialState = {
 
 export default function reducer(statePart = initialState, action = {}) {
   switch (action.type) {
-    case LOAD_CONCERTS: 
+    case LOAD_CONCERTS:
       return { ...statePart, data: [...action.payload] };
     case START_REQUEST:
       return { ...statePart, request: { pending: true, error: null, success: false } };
