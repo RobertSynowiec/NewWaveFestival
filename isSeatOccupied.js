@@ -4,7 +4,8 @@ function isSeatOccupied(seats, day, seat) {
         existingSeat.seat === seat
     ));
 
-    return !!occupiedSeat; // Zwraca true, jeśli miejsce jest zajęte, false w przeciwnym razie
+    return !!occupiedSeat;
+
 }
 
 module.exports = isSeatOccupied;
