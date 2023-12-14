@@ -40,7 +40,7 @@ router.post('/seats',
         );
 
         if (isSeatOccupiedResult) {
-            return res.status(400).json({ message: "The slot is already taken..." });
+            return res.json({ message: "The slot is already taken..." });
         }
 
         const newSeat = {
