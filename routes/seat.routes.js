@@ -31,12 +31,13 @@ router.get('/seats/:id',
     });
 
 router.post('/seats',
-    validateInput(seatSchema),
+    //validateInput(seatSchema),
     (req, res) => {
         const { day, seat, client, email } = req.body;
 
-        const isSeatOccupiedResult = isSeatOccupied(db.seats, day, seat);
-        console.log('isSeatOccupiedResult ', isSeatOccupiedResult)
+        const isSeatOccupiedResult = db.seats.some(
+            item => item.day === day && item.seat === seat
+        );
 
         if (isSeatOccupiedResult) {
             return res.status(400).json({ message: "The slot is already taken..." });
